@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Viewport tag: makes the page scale correctly on phones -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Huwa — Typography Specimen</title>
+
+  <style>
+  /* ========= 1) VARIABLES (design tokens) =========
+     CSS variables keep colors in one place so they are easy to change. */
+  :root {
+    --ink: #111;                           /* main text color */
+    --muted: #555;                         /* secondary text color */
+    --bg: #f4f4f4;                         /* page background */
+    --card: #fff;                          /* card background */
+    --line: rgba(0, 0, 0, .12);            /* subtle border color */
+    --shadow: 0 10px 22px rgba(0,0,0,.06); /* soft shadow */
+    --radius: 14px;                        /* corner radius */
+  }
+
+  /* box-sizing reset: padding no longer adds to an element's total width */
+  * { box-sizing: border-box; }
+
+  /* ========= 2) BASE STYLES (MOBILE-FIRST) =========
+     clamp() gives fluid text size without a media query for every size. */
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    /* clamp(min, fluid, max): 16px floor keeps body readable on phones,
+       1.2vw scales with the screen, 20px ceiling stops it growing too big. */
+    font-size: clamp(16px, 1.2vw, 20px);
+    line-height: 1.6;   /* comfortable reading */
+  }
+
+  /* .container: centers the content and limits its width.
+     padding uses clamp() so the side spacing grows with the screen. */
+  .container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: clamp(16px, 3vw, 32px);
+  }
+
+  /* ========= 3) CLAMP TYPE SCALE ========= */
+
+  /* H1: grows from 28px on phones up to 56px on large screens */
+  h1 {
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+    font-size: clamp(28px, 4vw, 56px);
+    line-height: 1.08;
+  }
+
+  /* H2: section titles, clamp from 20px to 32px */
+  h2 {
+    margin: 0 0 12px;
+    font-size: clamp(20px, 2.2vw, 32px);
+    line-height: 1.2;
+  }
+
+  /* H3: card titles, clamp from 16px to 22px */
+  h3 {
+    margin: 0 0 8px;
+    font-size: clamp(16px, 1.6vw, 22px);
+    line-height: 1.25;
+  }
+
+  /* Body paragraph: muted color, max 65 characters per line for readability */
+  p {
+    margin: 0 0 12px;
+    color: var(--muted);
+    max-width: 65ch;
+  }
+
+  /* .small: captions/footer text, clamp from 12px to 14px */
+  .small {
+    font-size: clamp(12px, 1vw, 14px);
+    color: var(--muted);
+  }
+
+  /* ========= 4) SECTIONS / CARDS ========= */
+
+  /* .hero: the intro box at the top */
+  .hero {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(14px, 2.4vw, 24px);   /* fluid padding */
+    box-shadow: var(--shadow);
+    margin-bottom: clamp(14px, 2.4vw, 22px);
+  }
+
+  /* .grid: holds the cards. MOBILE FIRST = 1 column */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;   /* single column on phones */
+    gap: 16px;
+  }
+
+  /* .card: one content card */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(12px, 2vw, 18px);   /* fluid padding */
+    box-shadow: var(--shadow);
+  }
+
+  /* ========= 5) BREAKPOINTS =========
+     Mobile 1 column -> Tablet 2 -> Desktop 3 */
+  @media (min-width: 720px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }  /* 2 columns on tablet */
+  }
+
+  @media (min-width: 980px) {
+    .grid { grid-template-columns: repeat(3, 1fr); }  /* 3 columns on desktop */
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 18px;
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- HERO / INTRO -->
+    <section class="hero">
+      <h1>Huwa — Keeping Nubian Culture Alive</h1>
+      <p>
+        Huwa is a channel that shares the stories, language, food, and music of
+        Nubia through short videos, so a rich heritage is remembered and passed on.
+      </p>
+      <p class="small">
+        Resize the page from phone to desktop — the text scales smoothly with clamp().
+      </p>
+    </section>
+
+    <!-- CARDS -->
+    <section>
+      <h2>What Huwa Shares</h2>
+
+      <div class="grid">
+
+        <article class="card">
+          <h3>The Nubian Language</h3>
+          <p>
+            Short lessons that teach the words and numbers of our ancestors,
+            keeping a language alive that is slowly fading.
+          </p>
+          <p class="small">Category: Language</p>
+        </article>
+
+        <article class="card">
+          <h3>Nubian Food</h3>
+          <p>
+            Traditional recipes like Jabori bread, baked the old way in hot sand,
+            and dishes that taste like a grandmother's home.
+          </p>
+          <p class="small">Category: Food</p>
+        </article>
+
+        <article class="card">
+          <h3>Colors &amp; Dress</h3>
+          <p>
+            The meaning behind the bright colors of the traditional Garjar and
+            Toub, and the stories woven into each pattern.
+          </p>
+          <p class="small">Category: Heritage</p>
+        </article>
+
+        <article class="card">
+          <h3>Music &amp; Stories</h3>
+          <p>
+            The songs, sayings, and folk tales that carry Nubian identity from
+            one generation to the next.
+          </p>
+          <p class="small">Category: Music</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- REFLECTION -->
+    <section class="hero">
+      <h2>Reflection</h2>
+      <p>
+        For my H1, I used clamp(28px, 4vw, 56px). I chose 28px as the minimum so
+        the heading is never too small to read on a phone, 56px as the maximum so
+        it does not look huge on a big desktop screen, and 4vw as the preferred
+        value so it grows and shrinks smoothly with the screen width. The minimum
+        and maximum are important because they set safe limits — the text can
+        scale, but it never becomes unreadable or oversized. I tested the page by
+        opening it in Chrome and slowly resizing the window from a narrow phone
+        width up to a wide desktop width, watching the headings and body text
+        scale smoothly and the cards change from one column to two and then three.
+        Everything stayed readable at every size.
+      </p>
+    </section>
+
+    <footer>
+      <p class="small">Created by Amgad · Clamp Typography Assignment</p>
+    </footer>
+
+  </div><!-- /.container -->
+</body>
+</html>
